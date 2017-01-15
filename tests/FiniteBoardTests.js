@@ -48,4 +48,15 @@ describe('Finite life test', function() {
         nLive(board).should.be.equal(4);
     });
 
+    it('flash live forever', function() {
+        board.setLive(5, 5);
+        board.setLive(6, 5);
+        board.setLive(7, 5);
+        nLive(board).should.be.equal(3);
+        board.step();
+        nLive(board).should.be.equal(3);
+        board.step();
+        nLive(board).should.be.equal(3);
+    });
+
 });
