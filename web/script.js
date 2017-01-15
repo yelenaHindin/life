@@ -18,6 +18,9 @@ window.onload = function() {
             return;
 
         var cell = evt.srcElement;
+        if (cell.tagName != "TD")
+            return;
+
         var gameX = cell.getAttribute("gameX");
         var gameY = cell.getAttribute("gameY");
 
@@ -40,7 +43,7 @@ window.onload = function() {
         uiBoard[y] = [];
         var tr = document.createElement("tr");
         tbl.appendChild(tr);
-        for(var x = 0; x < h; x++) {
+        for(var x = 0; x < w; x++) {
             var td = document.createElement("td");
             uiBoard[y][x] = td;
             td.setAttribute("gameX",x);
@@ -49,4 +52,41 @@ window.onload = function() {
             tr.appendChild(td);
         }
     }
+}
+
+var stepTimeout;
+
+function step()
+{
+    if (state != State.RUNNING)
+        return;
+
+    board.step();
+
+    for(var y = 0; y < board.height(); y++) {
+        for(var x = 0; x < board.width(); x++) {
+            cellClassName = "cell " + (board.isLive(x, y) ? "live" : "dead");
+            uiBoard[y][x].className = cellClassName;
+        }
+    }
+
+    stepTimeout = setTimeout(step, 200);
+}
+
+function run()
+{
+    stopButton.disabled = false;
+    runButton.disabled = true;
+    state = State.RUNNING;
+
+    step();
+}
+
+function stop()
+{
+    stopButton.disabled = true ;
+    runButton.disabled = false ;
+    state = State.EDITING;
+
+    stepTimeout = null;
 }
