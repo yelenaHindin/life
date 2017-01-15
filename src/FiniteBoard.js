@@ -30,8 +30,8 @@ FiniteBoard.FiniteBoard.prototype.height = function() {
 }
 
 FiniteBoard.FiniteBoard.prototype.isLive = function(x, y) {
-    if (x < 0 || x >= this.width ||
-        y < 0 || y >= this.height) {
+    if (x < 0 || x >= this._width ||
+        y < 0 || y >= this._height) {
         return false;
     }
 
@@ -47,7 +47,7 @@ FiniteBoard.FiniteBoard.prototype.nLiveNeighbors =  function (x, y) {
     var n = 0;
     for (var xx = -1; xx <= 1; xx++) {
         for (var yy = -1; yy <= 1; yy++) {
-            if (x == xx && y == yy)
+            if (xx == 0 && yy == 0)
                 continue;
             if (this.isLive(x + xx, y + yy))
                 n++;
@@ -57,11 +57,11 @@ FiniteBoard.FiniteBoard.prototype.nLiveNeighbors =  function (x, y) {
 }
 
 FiniteBoard.FiniteBoard.prototype.step = function() {
-    var newGenfield = FiniteBoard._createField(this.width, this.height);
+    var newGenfield = FiniteBoard._createField(this._width, this._height);
 
-    for (var x = 0; x < w; x++) {
-        for (var y = 0; y < h; y++) {
-            var nLive = nLiveNeighbors(x, y);
+    for (var x = 0; x < this._width; x++) {
+        for (var y = 0; y < this._height; y++) {
+            var nLive = this.nLiveNeighbors(x, y);
 
             switch (nLive) {
             case 0:
@@ -75,6 +75,7 @@ FiniteBoard.FiniteBoard.prototype.step = function() {
                 break;
             default:
                 newGenfield[y][x] = false;
+                break;
             }
         }
     }
