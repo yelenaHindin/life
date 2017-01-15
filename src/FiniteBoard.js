@@ -83,4 +83,6 @@ FiniteBoard.FiniteBoard.prototype.step = function() {
     this._field = newGenfield;
 }
 
-module.exports = FiniteBoard;
+if (typeof process !== 'undefined' && process) {
+    module.exports = FiniteBoard;
+}
