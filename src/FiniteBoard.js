@@ -25,6 +25,15 @@ FiniteBoard.FiniteBoard.prototype.width = function() {
     return this._width;
 }
 
+/*
+FiniteBoard.FiniteBoard.defineProperty(FiniteBoard.FiniteBoard,"width",{
+    get : function (){
+        return this._width;
+    }
+});
+*/
+
+
 FiniteBoard.FiniteBoard.prototype.height = function() {
     return this._height;
 }
@@ -40,6 +49,10 @@ FiniteBoard.FiniteBoard.prototype.isLive = function(x, y) {
 
 FiniteBoard.FiniteBoard.prototype.setLive = function(x, y) {
     this._field[y][x] = true;
+}
+
+FiniteBoard.FiniteBoard.prototype.setDead = function(x, y) {
+    this._field[y][x] = false;
 }
 
 
