@@ -1,0 +1,25 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "description": "finite life tests",
+  "main": "FiniteBoardTests.js",
+  "scripts": {
+    "test": "FiniteBoardTests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yelenaHindin/life.git"
+  },
+  "keywords": [
+    "life"
+  ],
+  "author": "Yelena Hindin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yelenaHindin/life/issues"
+  },
+  "homepage": "https://github.com/yelenaHindin/life#readme",
+  "dependencies": {
+    "should": "^11.1.2"
+  }
+}
