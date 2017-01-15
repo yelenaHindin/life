@@ -82,6 +82,7 @@ FiniteBoard.FiniteBoard.prototype.step = function() {
                 newGenfield[y][x] = false;
                 break;
             case 2:
+                newGenfield[y][x] = this._field[y][x];
                 break;
             case 3:
                 newGenfield[y][x] = true;
