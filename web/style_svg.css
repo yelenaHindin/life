@@ -1,0 +1,12 @@
+.cell {
+    /*fill : white;*/
+    stroke : black;
+}
+
+.live {
+    fill: black;
+}
+
+.dead {
+    fill: white;
+}
