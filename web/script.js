@@ -35,8 +35,8 @@ window.onload = function() {
 
     });
 
-    var w = board.width();
-    var h = board.height();
+    var w = board.width;
+    var h = board.height;
     console.log(w, h);
 
     for(var y = 0; y < h; y++) {
@@ -63,8 +63,8 @@ function step()
 
     board.step();
 
-    for(var y = 0; y < board.height(); y++) {
-        for(var x = 0; x < board.width(); x++) {
+    for(var y = 0; y < board.height; y++) {
+        for(var x = 0; x < board.width; x++) {
             cellClassName = "cell " + (board.isLive(x, y) ? "live" : "dead");
             uiBoard[y][x].className = cellClassName;
         }
