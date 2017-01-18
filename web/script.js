@@ -26,13 +26,9 @@ window.onload = function() {
 
         if (evt.ctrlKey) {
             board.setDead(gameX, gameY);
-            uiBoard[gameY][gameX].className = "cell dead";
         } else {
             board.setLive(gameX, gameY);
-            uiBoard[gameY][gameX].className = "cell live";
         }
-
-
     });
 
     var w = board.width;
@@ -52,6 +48,10 @@ window.onload = function() {
             tr.appendChild(td);
         }
     }
+
+    board.on('changed', function(x, y, live) {
+        uiBoard[y][x].className = "cell " + (live ? "live" : "dead");
+    });
 }
 
 var stepTimeout;
@@ -62,14 +62,6 @@ function step()
         return;
 
     board.step();
-
-    for(var y = 0; y < board.height; y++) {
-        for(var x = 0; x < board.width; x++) {
-            cellClassName = "cell " + (board.isLive(x, y) ? "live" : "dead");
-            uiBoard[y][x].className = cellClassName;
-        }
-    }
-
     stepTimeout = setTimeout(step, 200);
 }
 

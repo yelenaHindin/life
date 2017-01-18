@@ -19,7 +19,7 @@ FiniteBoard.FiniteBoard = function(w, h) {
 
     this._field = FiniteBoard._createField(w, h);
 
-    this.defineProperty
+    this._callbacks = {}
 
 }
 
@@ -43,12 +43,13 @@ FiniteBoard.FiniteBoard.prototype = {
 
     setLive: function(x, y) {
         this._field[y][x] = true;
+        this.fire('changed', x, y, true);
     },
 
     setDead: function(x, y) {
         this._field[y][x] = false;
+        this.fire('changed', x, y, false);
     },
-
 
     nLiveNeighbors:  function (x, y) {
         var n = 0;
@@ -74,22 +75,43 @@ FiniteBoard.FiniteBoard.prototype = {
                 case 0:
                 case 1:
                     newGenfield[y][x] = false;
+                    this.fire('changed', x, y, false);
                     break;
                 case 2:
                     newGenfield[y][x] = this._field[y][x];
                     break;
                 case 3:
                     newGenfield[y][x] = true;
+                    this.fire('changed', x, y, true);
                     break;
                 default:
                     newGenfield[y][x] = false;
+                    this.fire('changed', x, y, false);
                     break;
                 }
             }
         }
 
         this._field = newGenfield;
+    },
+
+    on: function(name, callback) {
+        if (typeof name != 'string' )
+            throw new Error("Invalid argument, should be a function");
+
+        if (typeof callback != 'function' )
+            throw new Error("Invalid argument, should be a function");
+
+        this._callbacks[name] = callback;
+    },
+
+    fire: function(name) {
+        var cb = this._callbacks[name];
+
+        Array.prototype.shift.apply(arguments);
+        cb.apply(this, arguments);
     }
+
 }
 
 if (typeof process !== 'undefined' && process) {
